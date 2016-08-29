@@ -176,7 +176,7 @@ echo $this->Html->css('jquery-ui-1.10.4.custom.min.css');
                             <i class="fa fa-file-o fa-fw">
                                 <div class="icon-bg bg-yellow"></div>
                             </i>
-                            <span class="menu-title">Home  INGENIA-PC</span>
+                            <span class="menu-title">Home</span>
                             </a>
                             <div >
                                 <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;"></div>

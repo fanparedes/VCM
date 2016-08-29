@@ -381,8 +381,7 @@ class HomeController extends AppController {
 		$cant_pag = $this->round_up($cant_pag_tmp, 0);
 		$this->set('cant_pag', $cant_pag);
 
-	}
-	
+	} 
 
 	public function administrativo() {
 
@@ -391,16 +390,139 @@ class HomeController extends AppController {
 			if ((count($this->request->data) == 0)){ //Busqueda del home
 				return $this->redirect(array('controller' => 'home', 'action' => 'administrativo'));				
 			}
-			$this->Session->write('busqueda_home', $this->request->data);
-	  		$id_usuario = $this->Session->read('Auth.User.id');				
+
+	  		$id_usuario = $this->Session->read('Auth.User.id');
+
+
+/* 			$this->Activity->unbindModel(
+	        	array('hasMany' => array('Objetive', 'Milestone', 'Image'),
+	        			'hasAndBelongsToMany' => array( 'Central', 'External','Headquarter','Internal', 'School', 'Area')
+	        	)
+	    	);
+
+			$this->Activity->Behaviors->load('Containable');
+			if (!isset($this->request->data['Beginning'])) {
+				$this->request->data['Beginning'] = 0;
+			}
+			if (!isset($this->request->data['Entity'])) {
+				$this->request->data['Entity'] = 0;
+			}
+			if (!isset($this->request->data['Scope'])) {
+				$this->request->data['Scope'] = 0;
+			}
+			if (!isset($this->request->data['Recursos'])) {
+				$this->request->data['Recursos'] = array(0, 1, 2);
+			}
+			if (!isset($this->request->data['Estrellas'])) {
+				$this->request->data['Estrellas'] = array(1, 2, 3, 4, 5);
+			} */
+			
+
+			/*
+			$actividades_evaluadas = $this->Activity->find('all',array('contain' => array(
+					'Review' => array(),
+					'ActivityInstitution' => array(),
+					'Beginning' => array(
+						'conditions' => array('or' => array('Beginning.id' => is_array($this->request->data['Beginning']) ? array_merge($this->request->data['Beginning']) : $this->request->data['Beginning']
+							)),
+						'fields' => array('Beginning.id')
+					),
+					'Entity' => array(
+						'conditions' => array('or' => array('Entity.id' => is_array($this->request->data['Entity']) ? array_merge($this->request->data['Entity']) : $this->request->data['Entity']
+							)),
+						'fields' => array('Entity.id')
+
+					),
+					'Scope' => array(
+						'conditions' => array('or' => array('Scope.id' => is_array($this->request->data['Scope']) ? array_merge($this->request->data['Scope']) : $this->request->data['Scope']
+							)),
+						'fields' => array('Scope.id')
+
+
+					))
+					,
+					'conditions' => array('Activity.evaluacion' => $this->request->data['Estrellas'], 'Activity.financiamiento_i_e_m' => $this->request->data['Recursos'])
+
+						)
+				);*/
+				
 				$actividades_evaluadas = $this->Activity->find('all', array(
 					'conditions' => array(
 								//'Activity.estado' => 2
 							)
 						)
 				);
-			$actividades_evaluadas = $this->filtroActividades($actividades_evaluadas, $this->request->data);
-						
+				
+				$actividades_evaluadas = $this->filtroActividades($actividades_evaluadas, $this->request->data);
+				
+				
+				// FIX Filtro
+/* 				
+				
+				$_cuent = 0;
+				$_activi = array(); */
+				
+/* 				foreach($actividades_evaluadas as $act) {		
+					if (isset($this->request->data['Beginning']) && !empty($this->request->data['Beginning'])) {
+						$_suma = false;
+						foreach($act['Beginning'] as $Beginning)
+						{
+							if (in_array($Beginning['id'], array_merge($this->request->data['Beginning']))) {
+								$_suma = true;
+								echo 'Beginning';
+								break;
+							}
+						}
+						die;
+					}
+					if (isset($this->request->data['Scope']) && !empty($this->request->data['Scope'])) {
+						foreach($act['Scope'] as $Scope)
+						{
+							if (in_array($Scope['id'], array_merge($this->request->data['Scope']))) {
+								$_suma = true;
+								echo 'Scope';
+								//exit;
+								break;
+							}
+						}
+					}
+					if (isset($this->request->data['Entity']) && !empty($this->request->data['Entity'])) {
+						foreach($act['Entity'] as $Entity)
+						{
+							if (in_array($Entity['id'], array_merge($this->request->data['Entity']))) {
+								$_suma = true;
+								echo 'Entity';
+								//exit;
+								break;
+							}
+						}
+					}
+					if (isset($this->request->data['Estrellas']) && !empty($this->request->data['Estrellas'])) {
+						if (in_array($act['Activity']['evaluacion'], array_merge($this->request->data['Estrellas']))) {
+							echo 'Estrellas';
+							//exit;
+							$_suma = true;
+						}
+					}
+					if (isset($this->request->data['Recursos']) && !empty($this->request->data['Recursos'])) {
+						if (in_array($act['Activity']['financiamiento_i_e_m'], array_merge($this->request->data['Recursos']))) {
+							echo 'Recursos';
+							//exit;
+							$_suma = true;
+						}
+					}
+					if($_suma == true)
+					{
+						array_push($_activi, $act);
+					}
+				} */
+				//echo var_dump($_activi);
+				//var_dump($this->request->data);
+				//var_dump(array_merge($this->request->data['Estrellas']));
+				//exit;
+				
+				// FIX Filtro
+			
 			$this->set('actividades_evaluadas', $actividades_evaluadas);
 			$total_act = count($actividades_evaluadas);
 			if ($total_act > 0){
@@ -444,65 +566,23 @@ class HomeController extends AppController {
 			else {
 				echo '<script>alert("No se han encontrado actividades con los criterios de busqueda")</script>';				
 			}
-
-			//principios
-
-			$beginnings = $this->Beginning->find('list', array(
-					'recursive' => -1
-				));
-			$this->set('beginnings', $beginnings);
-
-			// ambitos
-
-			$scopes = $this->Scope->find('list', array(
-					'recursive' => -1
-				));
-			$this->set('scopes', $scopes);
-
-
-			// entidades
-
-			$entities = $this->Entity->find('list', array(
-					'recursive' => -1
-				));
-			$this->set('entities', $entities);	
-				return;
-		}else{
-			$this->Session->write('busqueda_home', '');
-		}
-		
-		//SI NO ES UN FILTRO
-
-			$actividades_evaluadas = $this->Activity->find('all', array(
-					'conditions' => array(
-								//'Activity.estado' => 2
-							)
-						)
-				);
-				//var_dump($actividades_evaluadas);
-			$total_act = count($actividades_evaluadas); 
+				
+				
+			/* $this->set('actividades_evaluadas', $_activi);
+			$total_act = count($_activi);
 			$cant_positivos = 0;
 			$cant_negativos = 0;
 			$cant_terminadas = 0;
-			$cant_proceso = 0;
+			$cant_proceso = 0; */
 			
-			foreach($actividades_evaluadas as $act) {
-				if($act['Activity']['estado'] == 2) {
-					$cant_terminadas++;
-				}
-				if($act['Activity']['estado'] == 1) {
-					$cant_proceso++;
-				}
-			}
+/* 			
 			
 			$por_ter = round(((100 * $cant_terminadas) / $total_act), 1, PHP_ROUND_HALF_UP);
 			$por_pro = round(((100 * $cant_proceso) / $total_act), 1, PHP_ROUND_HALF_UP);
 			$this->set('por_ter', $por_ter);
 			$this->set('por_pro', $por_pro);	
 			
-			
-			
-			foreach($actividades_evaluadas as $act) {
+			foreach($_activi as $act) {
 				if($act['Activity']['evaluacion'] > 2) {
 					$cant_positivos++;
 				} else {
@@ -512,101 +592,15 @@ class HomeController extends AppController {
 			}
 			$this->set('total_act', $total_act);
 			$this->set('cant_positivos', $cant_positivos);
-			$this->set('cant_negativos', $cant_negativos);
+			$this->set('cant_negativos', $cant_negativos);		
 
 			$por_pos = round(((100 * $cant_positivos) / $total_act), 1, PHP_ROUND_HALF_UP);
 			$por_neg = round(((100 * $cant_negativos) / $total_act), 1, PHP_ROUND_HALF_UP);
 			$this->set('por_pos', $por_pos);
-			$this->set('por_neg', $por_neg);				
-		// filtro
-
-		//principios
-
-		$beginnings = $this->Beginning->find('list', array(
-				'recursive' => -1
-			));
-		$this->set('beginnings', $beginnings);
-
-		// ambitos
-
-		$scopes = $this->Scope->find('list', array(
-				'recursive' => -1
-			));
-		$this->set('scopes', $scopes);
-
-		// entidades
-
-		$entities = $this->Entity->find('list', array(
-				'recursive' => -1
-			));
-		$this->set('entities', $entities);	
+			$this->set('por_neg', $por_neg);	 */	
 
 
-	}
-
-	public function exportar_estadistica() {
-		$this->layout = 'ajax_excel';
-		$this->request->data = $this->Session->read('busqueda_home');
-
-		if (count($this->request->data)>0) { //SI ESTÁ FILTRANDO...
-			
-			if ((count($this->request->data) == 0)){ //Busqueda del home
-				return $this->redirect(array('controller' => 'home', 'action' => 'administrativo'));				
-			}
-
-	  		$id_usuario = $this->Session->read('Auth.User.id');				
-				$actividades_evaluadas = $this->Activity->find('all', array(
-					'conditions' => array(
-								//'Activity.estado' => 2
-							)
-						)
-				);
-			
-			$actividades_evaluadas = $this->filtroActividades($actividades_evaluadas, $this->request->data);
-						
-			$this->set('actividades_evaluadas', $actividades_evaluadas);
-			$total_act = count($actividades_evaluadas);
-			if ($total_act > 0){
-				$cant_positivos = 0;
-				$cant_negativos = 0;
-				$cant_terminadas = 0;
-				$cant_proceso = 0;		
-
-				foreach($actividades_evaluadas as $act) {
-					if($act['Activity']['estado'] == 2) {
-						$cant_terminadas++;
-					}
-					if($act['Activity']['estado'] == 1) {
-						$cant_proceso++;
-					}
-				}		
-
-				$por_ter = round(((100 * $cant_terminadas) / $total_act), 1, PHP_ROUND_HALF_UP);
-				$por_pro = round(((100 * $cant_proceso) / $total_act), 1, PHP_ROUND_HALF_UP);
-				$this->set('por_ter', $por_ter);
-				$this->set('por_pro', $por_pro);	
-				
-				foreach($actividades_evaluadas as $act) {
-					if($act['Activity']['evaluacion'] > 2) {
-						$cant_positivos++;
-					} else {
-						$cant_negativos++;
-					}
-
-				}
-				$this->set('total_act', $total_act);
-				$this->set('cant_positivos', $cant_positivos);
-				$this->set('cant_negativos', $cant_negativos);		
-
-				$por_pos = round(((100 * $cant_positivos) / $total_act), 1, PHP_ROUND_HALF_UP);
-				$por_neg = round(((100 * $cant_negativos) / $total_act), 1, PHP_ROUND_HALF_UP);
-				$this->set('por_pos', $por_pos);
-				$this->set('por_neg', $por_neg);				
-					
-			}
-			else {
-				echo '<script>alert("No se han encontrado actividades con los criterios de busqueda")</script>';				
-			}
+						// filtro
 
 			//principios
 
@@ -695,6 +689,7 @@ class HomeController extends AppController {
 			));
 		$this->set('scopes', $scopes);
 
+
 		// entidades
 
 		$entities = $this->Entity->find('list', array(
@@ -703,7 +698,7 @@ class HomeController extends AppController {
 		$this->set('entities', $entities);	
 
 
-	}
+	}	
 
 	public function admin() {
 

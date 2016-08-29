@@ -67,24 +67,14 @@ class AppController extends Controller {
 
 
         $controller = $this->params['controller'];
-        //echo var_dump($controller);
         $action = $this->params['action'];
-        //echo var_dump($action);
         $role = $this->Session->read('Auth.User.role');
-        //echo var_dump($role);
-        if (($action != 'login' && $controller!='uploads') && ($controller!=''  && $action!='' && $role!='')) {         
+        if ($action <> 'login') {
             if (!$this->Permiso->acl_check($controller, $action, $role)) {
                 $this->Flash->success(__('Ud. no tiene permisos para entrar a esta p&aacute;gina.'));
                 return $this->redirect(array('controller' => 'usuarios', 'action' => 'login'));
             }
         }
-
-        /*if ($action <> 'login') {         
-            if (!$this->Permiso->acl_check($controller, $action, $role)) {
-                $this->Flash->success(__('Ud. no tiene permisos para entrar a esta p&aacute;gina.'));
-                 return $this->redirect(array('controller' => 'usuarios', 'action' => 'login'));
-            }
-        }*/
 
      
         $this->_setAbsBase();
@@ -97,13 +87,12 @@ class AppController extends Controller {
 		return $id;
 	}
 	 
-    function _setAbsBase() {
+        function _setAbsBase() {
       $s = empty($_SERVER['HTTPS']) ? '' : ($_SERVER['HTTPS'] == 'on') ? 's' : '';
       $p = strtolower($_SERVER['SERVER_PROTOCOL']);
       $protocol = substr($p, 0, strpos($p, '/')) . $s;
       $port = ($_SERVER['SERVER_PORT'] == '80') ? '' : (':'.$_SERVER['SERVER_PORT']);
       $this->absBase = $protocol . '://' . $_SERVER['SERVER_NAME'] . $port . $this->base.'/';
-      //$this->set('abs_base', '/'.basename(dirname(APP)).'/');
       $this->set('abs_base', $this->absBase);
     }
 }

@@ -30,95 +30,94 @@
                     <?php echo $this->Form->create('Activity', array('url' => array('controller' => 'home', 'action' => 'administrativo'), 'id'=> 'form_actividad', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data')); ?>
 
 						<div class="panel-body">
-    						<div class="col-md-10">
-                                <div class="col-sm-2">
+						<div class="col-sm-2">
 
-                             <div class="btn-group "><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Principios" aria-expanded="true"><span class="multiselect-selected-text">Principios</span> <b class="caret"></b></button>
-                                    <ul class="multiselect-container dropdown-menu ">
-                                    <?php 
-                                    foreach($beginnings as $key => $beginning) { ?>
+                         <div class="btn-group "><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Principios" aria-expanded="true"><span class="multiselect-selected-text">Principios</span> <b class="caret"></b></button>
+                                <ul class="multiselect-container dropdown-menu ">
+                                <?php 
+                                foreach($beginnings as $key => $beginning) { ?>
 
-                                        <li ><a tabindex="0">
-                                            <label class="checkbox">
-                                            <input type="checkbox" name="data[Beginning][<?php echo $key;?>]" value="<?php echo $key; ?>"> <?php echo $beginning; ?></label></a>
-                                        </li>
+                                    <li ><a tabindex="0">
+                                        <label class="checkbox">
+                                        <input type="checkbox" name="data[Beginning][<?php echo $key;?>]" value="<?php echo $key; ?>"> <?php echo $beginning; ?></label></a>
+                                    </li>
 
-                                    <?php } ?>
-                                    </ul>
-                                 </div>
-                            </div>
-                             
-                            
-
-                               <div class="col-sm-2">
-                                    
-                                 <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Principios" aria-expanded="true"><span class="multiselect-selected-text">Ámbitos</span> <b class="caret"></b></button>
-                                    <ul class="multiselect-container dropdown-menu">
-                                    <?php 
-                                    foreach($scopes as $key => $scope) { ?>
-
-                                        <li ><a tabindex="0">
-                                            <label class="checkbox">
-                                            <input type="checkbox" name="data[Scope][<?php echo $key;?>]" value="<?php echo $key; ?>"> <?php echo $scope; ?></label></a>
-                                        </li>
-
-                                    <?php } ?>
-                                    </ul>
-                                 </div>
+                                <?php } ?>
+                                </ul>
                              </div>
-                            
-                             <div class="col-sm-2">
-                                    
-                                   
-                                    <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Entidades" aria-expanded="true"><span class="multiselect-selected-text">Entidades</span> <b class="caret"></b></button>
-                                    <ul class="multiselect-container dropdown-menu">
-                                    <?php 
-                                    foreach($entities as $key => $entity) { ?>
+                        </div>
+                         
+                        
 
-                                        <li ><a tabindex="0">
-                                            <label class="checkbox">
-                                            <input type="checkbox" name="data[Entity][<?php echo $key;?>]" value="<?php echo $key; ?>"> <?php echo $entity; ?></label></a>
-                                        </li>
+                           <div class="col-sm-2">
+                            	
+                             <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Principios" aria-expanded="true"><span class="multiselect-selected-text">Ámbitos</span> <b class="caret"></b></button>
+                                <ul class="multiselect-container dropdown-menu">
+                                <?php 
+                                foreach($scopes as $key => $scope) { ?>
 
-                                    <?php } ?>
-                                    </ul>
-                                    </div>
-                                </div>
-                            
-                             <div class="col-sm-2">
-                                    
-                                    <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Entidades" aria-expanded="true"><span class="multiselect-selected-text">Recursos</span> <b class="caret"></b></button>
-                                    <ul class="multiselect-container dropdown-menu">
                                     <li ><a tabindex="0">
-                                    <label class="checkbox">
-                                    <input type="checkbox"  name="data[Recursos][0]" value="0"> Interno</label></a></li>
-                                    <li><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Recursos][1]" value="1"> Externo</label></a></li>
-                                    <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Recursos][2]" value="2"> Mixto</label></a></li>
-                                   </ul>
-                                    </div>
-                                </div>
-                                <div class="col-sm-1">
-                                    
-                                    <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Entidades" aria-expanded="true"><span class="multiselect-selected-text">Evaluación</span> <b class="caret"></b></button>
-                                    <ul class="multiselect-container dropdown-menu">
+                                        <label class="checkbox">
+                                        <input type="checkbox" name="data[Scope][<?php echo $key;?>]" value="<?php echo $key; ?>"> <?php echo $scope; ?></label></a>
+                                    </li>
+
+                                <?php } ?>
+                                </ul>
+                             </div>
+                         </div>
+						
+						 <div class="col-sm-2">
+                            	
+                               
+                                <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Entidades" aria-expanded="true"><span class="multiselect-selected-text">Entidades</span> <b class="caret"></b></button>
+                                <ul class="multiselect-container dropdown-menu">
+                                <?php 
+                                foreach($entities as $key => $entity) { ?>
+
                                     <li ><a tabindex="0">
-                                    <label class="checkbox">
-                                    <input type="checkbox" name="data[Estrellas][5]" value="5"> 5 Estrellas</label></a></li>
-                                    <li><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][4]" value="4"> 4 Estrellas</label></a></li>
-                                    <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][3]" value="3"> 3 Estrellas</label></a></li>
-                                     <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][2]" value="2"> 2 Estrellas</label></a></li>
-                                      <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][1]" value="1"> 1 Estrellas</label></a></li>
-                                   </ul>
-                                    </div>
+                                        <label class="checkbox">
+                                        <input type="checkbox" name="data[Entity][<?php echo $key;?>]" value="<?php echo $key; ?>"> <?php echo $entity; ?></label></a>
+                                    </li>
+
+                                <?php } ?>
+                                </ul>
                                 </div>
                             </div>
-                             <div class="col-md-2">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
-                                    </div>
+						
+						 <div class="col-sm-2">
+                            	
+                                <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Entidades" aria-expanded="true"><span class="multiselect-selected-text">Recursos</span> <b class="caret"></b></button>
+                                <ul class="multiselect-container dropdown-menu">
+                                <li ><a tabindex="0">
+                                <label class="checkbox">
+                                <input type="checkbox"  name="data[Recursos][0]" value="0"> Interno</label></a></li>
+                                <li><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Recursos][1]" value="1"> Externo</label></a></li>
+                                <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Recursos][2]" value="2"> Mixto</label></a></li>
+                               </ul>
                                 </div>
                             </div>
+                                 <div class="col-sm-2">
+                                
+                                <div class="btn-group"><button type="button" class="multiselect dropdown-toggle btn btn-default" data-toggle="dropdown" title="Entidades" aria-expanded="true"><span class="multiselect-selected-text">Evaluación</span> <b class="caret"></b></button>
+                                <ul class="multiselect-container dropdown-menu">
+                                <li ><a tabindex="0">
+                                <label class="checkbox">
+                                <input type="checkbox" name="data[Estrellas][5]" value="5"> 5 Estrellas</label></a></li>
+                                <li><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][4]" value="4"> 4 Estrellas</label></a></li>
+                                <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][3]" value="3"> 3 Estrellas</label></a></li>
+                                 <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][2]" value="2"> 2 Estrellas</label></a></li>
+                                  <li class=""><a tabindex="0"><label class="checkbox"><input type="checkbox" name="data[Estrellas][1]" value="1"> 1 Estrellas</label></a></li>
+                               </ul>
+                                </div>
+                            </div>
+
+
+                                                         <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-primary">
+                                                                Buscar</button>
+                                                            </div>
+                                                        </div>
 						</div>
 
                     </form>
@@ -246,21 +245,7 @@ $(function () {
                                         </div>
 
 
-                                            </div>
 
-                                        </div>
-                                        <div class="container-fluid">
-                                            <div class="col-md-12">
-                                                <?php
-                                                echo $this->Html->link('<span class="fa fa-gear"></span>&nbsp; Exportar a Excel', array(
-                                                    'controller' => 'home',
-                                                    'action' => 'exportar_estadistica'),
-                                                    array(
-                                                        'class' => 'btn btn-green dropdown-toggle',
-                                                        'escape' => false
-                                                        )
-                                                    );
-                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -270,7 +255,6 @@ $(function () {
                               
                                 <div class="jplist-panel box panel-bottom">
                                   <div data-control-type="pagination" data-control-name="paging" data-control-action="paging" data-control-animate-to-top="true" class="jplist-pagination"></div>
-
                                 </div>
                               </div>
                             </div>
